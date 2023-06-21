@@ -1,0 +1,415 @@
+<html lang="En">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <head>
+        <title>Electrical Harmonics in Circuits</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                background-image: url("logo.png");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: white;
+            }
+
+            h1 {
+                margin-top : 50px ; 
+                text-align: center;
+                color: darkred;
+                font-weight : 800 ; 
+                font-style: italic;
+            }
+
+            h2 {
+                color: green;
+            }
+
+            p {
+                text-align: justify;
+            }
+
+            img {
+                display: block;
+                margin: 0 auto;
+                width: 80%;
+            }
+
+            @media (max-width: 600px) {
+                img {
+                    width: 100%;
+                }
+            }
+
+            /* Navigation bar */
+
+            .navbar {
+                display: flex;
+                width : 100% ; 
+                height : 50px ; 
+                font-size: larger;
+                align-items: center;
+                background-color: black;
+                color: white;
+                z-index: 10000;
+                position: fixed;
+            }
+
+            .navbar-logo {
+                margin-left: 10px;
+                height: 50px;
+            }
+
+            .navbar-links {
+                display: flex;
+                flex-grow: 1;
+                justify-content: center;
+            }
+
+            .navbar-link {
+                margin: 10px;
+                text-decoration: none;
+                color: white;
+            }
+
+            .navbar-link:hover {
+                transform: scale(1.1);
+                background-color: green;
+            }
+
+            .navbar-name {
+                margin-right: 10px;
+            }
+
+            /* Drop list for narrow screens */
+
+            @media (max-width: 600px) {
+
+                .navbar-links {
+                    position: absolute;
+                    top: 50px;
+                    left: 0;
+                    width: 100%;
+                    flex-direction: column;
+                    display: none;
+                    /* Hide by default */
+                    z-index: 1;
+                    /* Bring to front */
+                    background-color: black;
+                    /* Black background */
+                    overflow-x: hidden;
+                    /* Disable horizontal scroll */
+                    padding-top: 60px;
+                    /* Place content 60px from the top */
+                    transition-duration: 0.5s;
+                    /* Transition effect when opening the drop list */
+
+                }
+
+                /* Style the links inside the drop list */
+                .navbar-link {
+                    padding-left: 8%;
+                    /* Indent links */
+                }
+
+                /* When you mouse over the drop list links, change their color */
+                .navbar-link:hover {
+                    color: green;
+                    /* Add a green color to links */
+                }
+
+                /* Position and style the close button (top right corner) */
+                .closebtn {
+                    position: absolute;
+                    /* Position it in relation to its parent element */
+                    top: 0;
+                    /* Position it at the top of the drop list */
+                    right: 25px;
+                    /* Position it from the right side of the drop list */
+                    font-size: 36px;
+                    /* Increase font size */
+                }
+
+                /* Style the button that is used to open and close the drop list */
+                .openbtn {
+                    font-size: 20px;
+                    /* Set a font size */
+                    cursor: pointer;
+                    /* Add a mouse pointer on hover */
+                }
+
+                /* When the drop list is shown, make it cover all screen with a black background */
+                .showDropList {
+                    display: block;
+                }
+
+                .showDropList~.container {
+                    background-color: black;
+                }
+
+                /* Hide logo and name on narrow screens */
+                .navbar-logo,
+                .navbar-name {
+                    display: none;
+                }
+
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="navbar">
+            <!-- <img src="logo2.png" alt="Ain Shams University logo" class="navbar-logo"> -->
+
+            <!-- Use any element to open/show the drop list menu (a button in this example) -->
+            <button class="openbtn" onclick="openDropList()">☰</button>
+
+            <!-- The links inside the drop list -->
+            <div id="myDropList" class="navbar-links">
+
+                <!-- Add an X button to close the drop list -->
+                <a href="javascript:void(0)" class="closebtn" onclick="closeDropList()">×</a>
+
+                <!-- Add links to different sections of the article–>
+                    -->
+                <a href="#introduction" class="navbar-link">Introduction</a>
+                <a href="#causes" class="navbar-link">Causes of Harmonics</a>
+                <a href="#effects" class="navbar-link">Effects of Harmonics</a>
+                <a href="#measurement" class="navbar-link">Measurement of Harmonics</a>
+                <a href="#mitigation" class="navbar-link">Mitigation of Harmonics</a>
+                <a href="#conclusion" class="navbar-link">Conclusion</a>
+                <a href="#references" class="navbar-link">References</a>
+            </div>
+
+            <span class="navbar-name">Mohamed Abdallah</span>
+        </div>
+
+        <div class="container">
+            <h1>Electrical Harmonics in Circuits</h1>
+            <h2 id="introduction">Introduction</h2>
+            <p>Electrical harmonics are voltages or currents that operate at a frequency that is an integer
+                (whole-number)
+                multiple of the fundamental frequency. For example, with a 50Hz fundamental frequency, we can expect
+                harmonics
+                at 100Hz, 150Hz, 200Hz, and so on. Harmonics are unwanted higher frequencies which superimpose on the
+                fundamental waveform creating a distorted wave pattern.</p>
+
+            <p>Harmonics are generated by non-linear loads, which are electrical devices or circuits that have a
+                voltage-current
+                characteristic that is not linear, that is, the current flowing through them is not proportional to the
+                applied
+                voltage. Some examples of non-linear loads are iron-cored inductors, switching transformers, electronic
+                ballasts
+                in fluorescent lights, rectifiers, silicon controlled rectifiers (SCRs), power transistors, power
+                converters and
+                other solid state switches.</p>
+
+            <p>Harmonics can cause various problems in electrical power systems, such as overheating of transformers and
+                cables,
+                tripping of breakers and fuses, malfunctioning of meters and relays, interference with communication and
+                control
+                systems, reduction of power factor and efficiency, and increased losses and costs.</p>
+
+            <p>In this article, we will discuss some of the causes and effects of harmonics in electrical circuits, as
+                well as
+                some methods to measure and mitigate them.</p>
+
+            <h2 id="causes">Causes of Harmonics</h2>
+            <p>As mentioned earlier, harmonics are produced by non-linear loads that draw current in abrupt pulses
+                rather than
+                in a smooth sinusoidal manner. These pulses cause harmonic currents to flow back into other parts of the
+                power
+                system, creating harmonic voltages across the impedances of the system.</p>
+
+            <p>One common source of harmonics is the rectifier circuit, which converts alternating current (AC) to
+                direct
+                current (DC). A rectifier circuit consists of diodes that allow current to flow only in one direction.
+                When the
+                AC voltage is positive, the diodes conduct and charge a capacitor. When the AC voltage is negative, the
+                diodes
+                block and the capacitor discharges. This results in a pulsating DC voltage with a ripple frequency that
+                is twice
+                the fundamental frequency.</p>
+
+            <p>The current waveform of a rectifier circuit is shown below.</p>
+
+            <img src="image1.png" alt="Rectifier current waveform">
+
+            <p>As we can see, the current waveform is not sinusoidal but has sharp peaks at regular intervals. This
+                means that
+                it contains harmonics of higher frequencies than the fundamental frequency. In fact, it can be shown
+                mathematically that the current waveform contains only odd harmonics (3rd, 5th, 7th, etc.) and that
+                their
+                magnitudes decrease as the harmonic order increases.</p>
+
+            <p>Another common source of harmonics is the switching circuit, which uses solid state devices such as
+                transistors
+                or SCRs to control the power delivered to a load. A switching circuit operates by turning on and off the
+                devices
+                at high frequencies to create a pulse width modulated (PWM) waveform. The PWM waveform can vary the
+                average
+                voltage and current delivered to the load by changing the duty cycle (the ratio of on time to off time)
+                of the
+                pulses.</p>
+
+            <p>The voltage waveform of a switching circuit is shown below.</p>
+
+            <img src="image2.png" alt="Switching voltage waveform">
+
+            <p>As we can see, the voltage waveform is not sinusoidal but has abrupt transitions between high and low
+                levels.
+                This means that it contains harmonics of higher frequencies than the fundamental frequency. In fact, it
+                can be
+                shown mathematically that the voltage waveform contains both odd and even harmonics (2nd, 4th, 6th,
+                etc.)
+                and that their magnitudes depend on the duty cycle and switching frequency.</p>
+            <h2 id="effects">Effects of Harmonics</h2>
+            <p>Harmonics can have various negative effects on electrical circuits and systems. Some of them are:</p>
+
+            <ul>
+                <li><b>Overheating</b>: Harmonic currents increase the effective resistance of conductors due to skin
+                    effect and
+                    proximity effect. Skin effect is the tendency of high frequency currents to flow near the surface of
+                    conductors
+                    rather than uniformly throughout their cross-section. Proximity effect is the tendency of high
+                    frequency
+                    currents to flow near each other rather than uniformly throughout their cross-section when they are
+                    close
+                    together. Both effects increase the power losses and heating in conductors.</li>
+                <li><b>Distortion</b>: Harmonic voltages distort the shape of the voltage waveform, which can affect the
+                    performance
+                    of sensitive equipment such as computers, controllers, meters and relays. Harmonic currents distort
+                    the shape of
+                    the current waveform, which can increase the harmonic losses and reduce the power factor. Harmonic
+                    distortion
+                    can also cause resonance in capacitors, transformers and other reactive components, leading to
+                    overvoltages and
+                    overcurrents that can damage them.</li>
+                <li><b>Interference</b>: Harmonics can interfere with communication and control systems that use power
+                    lines as
+                    transmission media, such as power line carrier (PLC), supervisory control and data acquisition
+                    (SCADA), and
+                    remote terminal unit (RTU). Harmonics can also interfere with radio and television signals that are
+                    transmitted
+                    or received near power lines.</li>
+            </ul>
+
+            <h2 id="measurement">Measurement of Harmonics</h2>
+            <p>Harmonics can be measured using various instruments and methods. Some of them are:</p>
+
+            <ul>
+                <li><b>Oscilloscope</b>: An oscilloscope can display the voltage or current waveform on a screen and
+                    show its shape
+                    and amplitude. However, an oscilloscope cannot measure the frequency or magnitude of each harmonic
+                    component
+                    directly. It can only show the overall distortion of the waveform.</li>
+                <li><b>Spectrum Analyzer</b>: A spectrum analyzer can display the frequency spectrum of a voltage or
+                    current
+                    waveform on a screen and show the magnitude of each harmonic component as a vertical bar. A spectrum
+                    analyzer
+                    can also measure the total harmonic distortion (THD), which is the ratio of the root mean square
+                    (RMS) value of
+                    all harmonic components to the RMS value of the fundamental component.</li>
+                <li><b>Power Quality Analyzer</b>: A power quality analyzer is a specialized instrument that can measure
+                    various
+                    parameters related to power quality, such as voltage, current, frequency, power factor, harmonics,
+                    flicker,
+                    transients, and so on. A power quality analyzer can also record and store data for later analysis.
+                </li>
+            </ul>
+
+            <h2 id="mitigation">Mitigation of Harmonics</h2>
+            <p>Harmonics can be mitigated using various devices and methods. Some of them are:</p>
+
+            <ul>
+                <li><b>Harmonic Filter</b>: A harmonic filter is a device that is used to reduce or eliminate harmonics
+                    from a power
+                    system. A harmonic filter can be either passive or active. A passive harmonic filter consists of
+                    passive
+                    components such as resistors, capacitors and inductors that are tuned to resonate at one or more
+                    harmonic
+                    frequencies and provide low impedance paths for harmonic currents to flow to ground. An active
+                    harmonic filter
+                    consists of active components such as transistors or SCRs that generate harmonic currents that are
+                    opposite in
+                    phase to the harmonic currents in the power system and cancel them out.</li>
+                <li><b>Isolation Transformer</b>: An isolation transformer is a device that transfers electrical energy
+                    from one
+                    circuit to another without direct electrical connection. An isolation transformer can isolate a load
+                    from the
+                    source and reduce or eliminate harmonics by providing a high impedance path for harmonic currents to
+                    flow back
+                    to the source.</li>
+                <li><b>Phase Shifting Transformer</b>: A phase shifting transformer is a device that shifts the phase
+                    angle of a
+                    voltage or current waveform by a certain amount. A phase shifting transformer can reduce or
+                    eliminate harmonics
+                    by shifting the phase angle of different loads so that their harmonic currents cancel each other out
+                    when they
+                    are added together.</li>
+                <li><b>Power Converter</b>: A power converter is a device that converts one form of electrical energy to
+                    another,
+                    such as AC to DC, DC to AC, AC to AC, or DC to DC.A power converter can reduce or eliminate
+                    harmonics by using advanced switching techniques such as pulse width
+                    modulation (PWM), space vector modulation (SVM), or multilevel converters that produce less
+                    distorted output waveforms
+                    than conventional converters.</li>
+            </ul>
+                <h2 id="conclusion">Conclusion</h2>
+                <p>Electrical harmonics are voltages or currents that operate at higher frequencies than the fundamental frequency of
+                    the power system. Harmonics are generated by non-linear loads that draw current in abrupt pulses rather than in a
+                    smooth sinusoidal manner. Harmonics can cause various problems in electrical circuits and systems, such as
+                    overheating, distortion, interference, and resonance. Harmonics can be measured using instruments such as
+                    oscilloscopes, spectrum analyzers, and power quality analyzers. Harmonics can be mitigated using devices and methods
+                    such as harmonic filters, isolation transformers, phase shifting transformers, and power converters.</p>
+                
+                <p>This article has provided an overview of electrical harmonics in circuits, their causes, effects, measurement, and
+                    mitigation. However, this is not a comprehensive or exhaustive treatment of the topic. For more details and
+                    information, the reader is advised to consult the references given below.</p>
+                
+                <h2 id="references">References</h2>
+                <ol>
+                    <li>S. Mark Halpin, Angela Card, "Power Quality", in Power Electronics Handbook (Third Edition), 2011.</li>
+                    <li><a
+                            href="https://www.electronics-tutorials.ws/accircuits/harmonics.html">https://www.electronics-tutorials.ws/accircuits/harmonics.html</a>
+                    </li>
+                    <li><a
+                            href="https://www.circuitbread.com/ee-faq/what-are-harmonics-and-how-does-it-affect-an-electrical-system">https://www.circuitbread.com/ee-faq/what-are-harmonics-and-how-does-it-affect-an-electrical-system</a>
+                    </li>
+                    <li><a href="https://www.elprocus.com/harmonic-filter/">https://www.elprocus.com/harmonic-filter/</a></li>
+                    <li><a
+                            href="https://www.sciencedirect.com/topics/engineering/harmonic-filter">https://www.sciencedirect.com/topics/engineering/harmonic-filter</a>
+                    </li>
+                    <li><a
+                            href="https://www.pentech.com/understanding-harmonic-filters/">https://www.pentech.com/understanding-harmonic-filters/</a>
+                    </li>
+                </ol>
+                </div>
+                
+                <!-- Add a script to open and close the drop list -->
+                <script>
+                    /* Open the drop list */
+                    function openDropList() {
+                        document.getElementById("myDropList").classList.add("showDropList");
+                    }
+
+                    /* Close the drop list */
+                    function closeDropList() {
+                        document.getElementById("myDropList").classList.remove("showDropList");
+                    }
+                </script>
+                </body>
+                
+                </html>
